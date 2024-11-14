@@ -6,27 +6,28 @@ from datetime import datetime
 from typing import List, Dict, Any, Optional, Tuple
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-from langchain_community.llms import HuggingFaceEndpoint
-from langchain.prompts import PromptTemplate
-from langchain.chains import LLMChain
 from mistralai_azure import MistralAzure
-from dotenv import load_dotenv
 import streamlit as st
 
-load_dotenv()
+st.set_page_config(
+    page_title="Bug Buster Labs - AI Bot",
+    page_icon="🔒",
+    layout="wide"
+)
 
-# Azure AI Configuration
-AZURE_AI_ENDPOINT = os.environ.get("AZURE_AI_ENDPOINT")
-AZURE_AI_API_KEY = os.environ.get("AZURE_AI_API_KEY")
+
+AZURE_AI_ENDPOINT = st.secrets["AZURE_AI_ENDPOINT"]
+AZURE_AI_API_KEY = st.secrets["AZURE_AI_API_KEY"]
+
 
 client = MistralAzure(azure_endpoint=AZURE_AI_ENDPOINT, azure_api_key=AZURE_AI_API_KEY)
 
 DB_CONFIG = {
-    "host": os.environ.get('HOST'),
-    "database": os.environ.get('DATABASE_NAME'),
-    "user": "bugbuster_admin",
-    "password": os.environ.get('PASSWORD'),
-    "port": os.environ.get('PORT'),
+    "host": st.secrets["HOST"],
+    "database": st.secrets["DATABASE_NAME"],
+    "user": st.secrets["USER"],
+    "password": st.secrets["PASSWORD"],
+    "port": st.secrets["PORT"]
 }
 
 
