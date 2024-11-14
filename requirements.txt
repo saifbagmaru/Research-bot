@@ -2,4 +2,4 @@ psycopg2-binary
 pandas
 mistralai
 scikit-learn
-mistralai_azure
+mistralai
